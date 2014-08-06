@@ -1,15 +1,15 @@
 search:
-  - _type: client
-    name:
-      _any:
-        - test
-        - infra
-    envs:
-      _all:
-        - name: prod
-        - _any:
-          - name: preprod
-          - name: staging
+  _type: client
+  name:
+    _any:
+      - test
+      - infra
+  envs:
+    _all:
+      - name: prod
+      - _any:
+        - name: preprod
+        - name: staging
 output-fields:
   - name
   - envs:

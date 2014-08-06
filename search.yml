@@ -8,12 +8,10 @@ definitions:
       search:
         title: search filters
         description: Search filter - top filter need a _type
-        type: array
-        items:
-          allOf:
-            - $ref: '#definitions/searchFilter'
-            - required:
-                - _type
+        allOf:
+          - $ref: '#definitions/searchFilter'
+          - required:
+            - _type
       output-fields:
         title: output fields for result
         description: attributes of objects to return

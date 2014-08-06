@@ -1,6 +1,6 @@
 search:
-  - _type: client
-    name: test
+  _type: client
+  name: test
 output-fields:
   - name
   - envs:

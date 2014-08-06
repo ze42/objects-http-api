@@ -1,8 +1,8 @@
 search:
-  - _type: client
-    name: test
-    envs:
-      example-foo: True
+  _type: client
+  name: test
+  envs:
+    example-foo: True
 output-fields:
   - name
   - envs:

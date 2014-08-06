@@ -1,8 +1,8 @@
 search:
-  - name: test
-    envs:
-      _type: env
-      example-foo: True
+  name: test
+  envs:
+    _type: env
+    example-foo: True
 output-fields:
   - name
   - envs:
