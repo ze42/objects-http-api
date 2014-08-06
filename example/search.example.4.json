@@ -1,0 +1,25 @@
+{
+    "search": {
+        "_type": [
+            "client", 
+            "env"
+        ], 
+        "name": "test", 
+        "envs": {
+            "_all": [
+                {
+                    "name": "prod"
+                }, 
+                {
+                    "name": "preprod"
+                }
+            ]
+        }
+    }, 
+    "output-fields": [
+        "*", 
+        {
+            "*": "*"
+        }
+    ]
+}

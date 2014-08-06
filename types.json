@@ -1,0 +1,204 @@
+{
+    "$schema": "http://json-schema.org/schema#", 
+    "$ref": "#definitions/objectTypes", 
+    "definitions": {
+        "objectTypes": {
+            "title": "Object Types (dict)", 
+            "description": "list and description of known object types", 
+            "type": "object", 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                    "$ref": "#definitions/objectType"
+                }
+            }
+        }, 
+        "objectType": {
+            "title": "Object Type", 
+            "description": "description of an object", 
+            "type": "object", 
+            "properties": {
+                "name": {
+                    "type": "string"
+                }, 
+                "aliases": {
+                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringSet"
+                }, 
+                "desc": {
+                    "type": "string"
+                }, 
+                "key": {
+                    "description": "list of attributes that makes an item unique", 
+                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringSet"
+                }, 
+                "attributes": {
+                    "$ref": "#definitions/objectAttributes"
+                }
+            }, 
+            "required": [
+                "name", 
+                "attributes", 
+                "key"
+            ], 
+            "additionalProperties": true
+        }, 
+        "objectAttributes": {
+            "title": "Object attributes", 
+            "description": "description of an object attributes", 
+            "type": "object", 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                    "$ref": "#definitions/objectAttribute"
+                }
+            }
+        }, 
+        "objectAttribute": {
+            "title": "ObjectAttribute", 
+            "description": "description of an object attribute", 
+            "oneOf": [
+                {
+                    "$ref": "#definitions/objectAttributeSimple"
+                }, 
+                {
+                    "$ref": "#definitions/objectAttributeSet"
+                }, 
+                {
+                    "$ref": "#definitions/objectAttributeRef"
+                }, 
+                {
+                    "$ref": "#definitions/objectAttributeRefAlias"
+                }
+            ]
+        }, 
+        "objectAttributeSimple": {
+            "title": "simple attribute", 
+            "description": "simple attribute", 
+            "type": "object", 
+            "properties": {
+                "type": {
+                    "type": "string", 
+                    "enum": [
+                        "string", 
+                        "integer", 
+                        "number", 
+                        "boolean"
+                    ]
+                }, 
+                "desc": {
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "type"
+            ], 
+            "additionalProperties": false
+        }, 
+        "objectAttributeSet": {
+            "title": "attribute set", 
+            "description": "reference to a set of other object", 
+            "type": "object", 
+            "properties": {
+                "type": {
+                    "type": "string", 
+                    "enum": [
+                        "set"
+                    ]
+                }, 
+                "subtype": {
+                    "description": "set of elements of those subtypes", 
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        }, 
+                        {
+                            "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringSet"
+                        }
+                    ]
+                }, 
+                "desc": {
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "type", 
+                "subtype"
+            ], 
+            "additionalProperties": false
+        }, 
+        "objectAttributeRef": {
+            "title": "attribute reference (ext key)", 
+            "description": "reference to an other object", 
+            "type": "object", 
+            "properties": {
+                "type": {
+                    "type": "string", 
+                    "enum": [
+                        "ref"
+                    ]
+                }, 
+                "subtype": {
+                    "description": "set of elements of those subtypes", 
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        }, 
+                        {
+                            "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringSet"
+                        }
+                    ]
+                }, 
+                "on-ref-delete": {
+                    "title": "chain deletion", 
+                    "description": "on ref delete, auto delete, or require a manual deletion", 
+                    "type": "string", 
+                    "enum": [
+                        "auto-delete", 
+                        "manual-delete"
+                    ]
+                }, 
+                "desc": {
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "type", 
+                "subtype", 
+                "on-ref-delete"
+            ], 
+            "additionalProperties": false
+        }, 
+        "objectAttributeRefAlias": {
+            "title": "indirect references alias", 
+            "description": "alias for indirect objects references/sets/...", 
+            "type": "object", 
+            "properties": {
+                "type": {
+                    "type": "string", 
+                    "enum": [
+                        "refalias"
+                    ]
+                }, 
+                "desc": {
+                    "type": "string"
+                }, 
+                "refpath": {
+                    "description": "path to follow", 
+                    "allOf": [
+                        {
+                            "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringSet"
+                        }, 
+                        {
+                            "minItems": 2
+                        }
+                    ]
+                }
+            }, 
+            "required": [
+                "type", 
+                "refpath"
+            ], 
+            "additionalProperties": false
+        }
+    }
+}

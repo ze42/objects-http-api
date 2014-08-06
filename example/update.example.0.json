@@ -1,0 +1,72 @@
+{
+    "search": [
+        {
+            "_ref": "c0", 
+            "_type": "client", 
+            "name": "test", 
+            "envs": {
+                "_all": [
+                    {
+                        "_ref": "e0", 
+                        "name": "preprod"
+                    }, 
+                    {
+                        "_ref": "e1", 
+                        "name": "prod"
+                    }
+                ]
+            }
+        }, 
+        {
+            "_ref": "h0", 
+            "_type": "domu", 
+            "name": "foobar", 
+            "env": {
+                "$ref": "e0"
+            }
+        }
+    ], 
+    "create": [
+        {
+            "_type": "domu", 
+            "name": "barbaz", 
+            "env": {
+                "$ref": "e1"
+            }, 
+            "roles": [
+                {
+                    "id": "8a3f944b-fa02-4093-961c-166450ef7dae"
+                }, 
+                {
+                    "id": "5af692a5-2b5e-4f3c-b78c-6f5fc9d00106"
+                }
+            ]
+        }
+    ], 
+    "update": [
+        {
+            "$ref": "h0", 
+            "enabled": false, 
+            "env": {
+                "$ref": "e1"
+            }, 
+            "roles": {
+                "_add": [
+                    {
+                        "id": "8a3f944b-fa02-4093-961c-166450ef7dae"
+                    }
+                ], 
+                "_remove": [
+                    {
+                        "id": "5af692a5-2b5e-4f3c-b78c-6f5fc9d00106"
+                    }
+                ]
+            }
+        }
+    ], 
+    "delete": [
+        {
+            "$ref": "e0"
+        }
+    ]
+}

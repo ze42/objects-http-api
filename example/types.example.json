@@ -1,0 +1,102 @@
+{
+    "client": {
+        "name": "client", 
+        "aliases": [
+            "Client", 
+            "customer", 
+            "org"
+        ], 
+        "desc": "Clients/customer/organisations we work with", 
+        "key": [
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string"
+            }, 
+            "envs": {
+                "type": "set", 
+                "subtype": "env"
+            }, 
+            "hosts": {
+                "type": "refalias", 
+                "refpath": [
+                    "envs", 
+                    "hosts"
+                ]
+            }
+        }
+    }, 
+    "dom0": {
+        "name": "dom0", 
+        "key": [
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string"
+            }, 
+            "env": {
+                "type": "ref", 
+                "subtype": "env", 
+                "on-ref-delete": "manual-delete"
+            }
+        }
+    }, 
+    "domu": {
+        "name": "domu", 
+        "key": [
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string"
+            }, 
+            "client": {
+                "type": "refalias", 
+                "refpath": [
+                    "env", 
+                    "client"
+                ]
+            }, 
+            "env": {
+                "type": "ref", 
+                "subtype": "env", 
+                "on-ref-delete": "manual-delete"
+            }
+        }
+    }, 
+    "env": {
+        "name": "env", 
+        "key": [
+            "client", 
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string"
+            }, 
+            "client": {
+                "type": "ref", 
+                "subtype": "client", 
+                "on-ref-delete": "manual-delete"
+            }, 
+            "example-bar": {
+                "type": "number"
+            }, 
+            "example-baz": {
+                "type": "integer"
+            }, 
+            "example-foo": {
+                "type": "boolean"
+            }, 
+            "hosts": {
+                "type": "set", 
+                "subtype": [
+                    "dom0", 
+                    "domu"
+                ]
+            }
+        }
+    }
+}

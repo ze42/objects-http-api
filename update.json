@@ -1,0 +1,279 @@
+{
+    "$schema": "http://json-schema.org/schema#", 
+    "title": "modification request", 
+    "description": "any modification (create/update/delete) request", 
+    "$ref": "#/definitions/fullUpdateRequest", 
+    "definitions": {
+        "identifiedObject": {
+            "title": "an identified object", 
+            "description": "an object, identified by id or $ref.", 
+            "properties": {
+                "$ref": {
+                    "title": "$ref of the object", 
+                    "description": "object searched or created, marked with a _ref reference", 
+                    "type": "string"
+                }, 
+                "id": {
+                    "title": "id of the object", 
+                    "description": "modify an object by id", 
+                    "type": "string"
+                }
+            }, 
+            "oneOf": [
+                {
+                    "required": [
+                        "id"
+                    ]
+                }, 
+                {
+                    "required": [
+                        "$ref"
+                    ]
+                }
+            ]
+        }, 
+        "identifiedObjects": {
+            "title": "list of identified objects", 
+            "description": "one or more identified object", 
+            "type": "array", 
+            "items": {
+                "$ref": "#/definitions/identifiedObject", 
+                "additionalProperties": false
+            }, 
+            "minItems": 1
+        }, 
+        "fullUpdateRequest": {
+            "title": "full modification request", 
+            "description": "search (for ref), and create/update/delete requests", 
+            "type": "object", 
+            "properties": {
+                "search": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#definitions/searchRequest"
+                    }, 
+                    "minItems": 1
+                }, 
+                "create": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#definitions/createRequest"
+                    }, 
+                    "minItems": 1
+                }, 
+                "update": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#definitions/updateRequest"
+                    }, 
+                    "minItems": 1
+                }, 
+                "delete": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#definitions/deleteRequest"
+                    }, 
+                    "minItems": 1
+                }
+            }, 
+            "anyOf": [
+                {
+                    "required": [
+                        "update"
+                    ]
+                }, 
+                {
+                    "required": [
+                        "create"
+                    ]
+                }, 
+                {
+                    "required": [
+                        "delete"
+                    ]
+                }
+            ]
+        }, 
+        "createRequest": {
+            "type": "object", 
+            "properties": {
+                "_ref": {
+                    "title": "new ref", 
+                    "description": "ref for searched object to use in following modifications", 
+                    "type": "string"
+                }, 
+                "_type": {
+                    "title": "type of object to create", 
+                    "description": "type of object to create is required", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "_type"
+            ], 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                    "anyOf": [
+                        {
+                            "title": "simple attribute value", 
+                            "description": "object is created with attribute at that simple value", 
+                            "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/simpleValue"
+                        }, 
+                        {
+                            "title": "ref", 
+                            "description": "object is created with that ref", 
+                            "$ref": "#/definitions/identifiedObject", 
+                            "additionalProperties": false
+                        }, 
+                        {
+                            "title": "set", 
+                            "description": "object is created and associated with that set", 
+                            "$ref": "#/definitions/identifiedObjects"
+                        }
+                    ]
+                }
+            }
+        }, 
+        "updateRequest": {
+            "title": "update request", 
+            "description": "update an identifiable object with new attribute values", 
+            "$ref": "#/definitions/identifiedObject", 
+            "type": "object", 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                    "anyOf": [
+                        {
+                            "title": "simple attribute value", 
+                            "description": "attribute is replaced by the new simple value", 
+                            "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/simpleValue"
+                        }, 
+                        {
+                            "title": "ref", 
+                            "description": "a ref can be updated to a new identified object", 
+                            "$ref": "#/definitions/identifiedObject", 
+                            "additionalProperties": false
+                        }, 
+                        {
+                            "title": "set", 
+                            "description": "to modify a set, _add or _remove identified objects", 
+                            "type": "object", 
+                            "properties": {
+                                "_add": {
+                                    "$ref": "#/definitions/identifiedObjects"
+                                }, 
+                                "_remove": {
+                                    "$ref": "#/definitions/identifiedObjects"
+                                }
+                            }, 
+                            "additionalProperties": false, 
+                            "anyOf": [
+                                {
+                                    "required": [
+                                        "_add"
+                                    ]
+                                }, 
+                                {
+                                    "required": [
+                                        "_remove"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }, 
+        "deleteRequest": {
+            "title": "delete request", 
+            "description": "each delete must be an identified object (id or ref)", 
+            "$ref": "#/definitions/identifiedObject", 
+            "additionalProperties": false
+        }, 
+        "searchRequest": {
+            "title": "main search request", 
+            "description": "a search filter, with at least a defined type", 
+            "$ref": "#definitions/searchFilter", 
+            "required": [
+                "_type"
+            ]
+        }, 
+        "searchFilter": {
+            "title": "search filter", 
+            "description": "search for main, or ref/set...", 
+            "anyOf": [
+                {
+                    "title": "identified search", 
+                    "description": "by id, or already found object", 
+                    "$ref": "#/definitions/identifiedObject"
+                }, 
+                {
+                    "title": "object match", 
+                    "description": "search an object by attributes", 
+                    "type": "object", 
+                    "properties": {
+                        "_ref": {
+                            "title": "new reference", 
+                            "description": "once found, can be used to identify object with $ref and the same value.", 
+                            "type": "string"
+                        }, 
+                        "_type": {
+                            "title": "search objects type", 
+                            "description": "type(s) of objects to search for", 
+                            "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet"
+                        }
+                    }, 
+                    "additionalProperties": false, 
+                    "patternProperties": {
+                        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                            "$ref": "#/definitions/searchFilterProperty"
+                        }
+                    }
+                }
+            ]
+        }, 
+        "searchFilterProperty": {
+            "title": "filter for an attribute", 
+            "description": "mostly the same as search filter, but with _ref available on objects", 
+            "anyOf": [
+                {
+                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/simpleValue"
+                }, 
+                {
+                    "type": "object", 
+                    "properties": {
+                        "_any": {
+                            "type": "array", 
+                            "items": {
+                                "$ref": "#definitions/searchFilterProperty"
+                            }
+                        }
+                    }, 
+                    "required": [
+                        "_any"
+                    ], 
+                    "additionalProperties": false
+                }, 
+                {
+                    "type": "object", 
+                    "properties": {
+                        "_all": {
+                            "type": "array", 
+                            "items": {
+                                "$ref": "#definitions/searchFilterProperty"
+                            }
+                        }
+                    }, 
+                    "required": [
+                        "_all"
+                    ], 
+                    "additionalProperties": false
+                }, 
+                {
+                    "$ref": "#definitions/searchFilter"
+                }
+            ]
+        }
+    }
+}

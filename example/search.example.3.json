@@ -1,0 +1,31 @@
+{
+    "search": {
+        "_type": "client", 
+        "name": {
+            "_any": [
+                "test", 
+                "infra"
+            ]
+        }, 
+        "envs": {
+            "_all": [
+                {
+                    "name": "prod"
+                }, 
+                {
+                    "name": "preprod"
+                }
+            ]
+        }
+    }, 
+    "output-fields": [
+        "name", 
+        {
+            "envs": [
+                "name", 
+                "client", 
+                "example-bar"
+            ]
+        }
+    ]
+}

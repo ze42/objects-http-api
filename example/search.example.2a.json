@@ -1,0 +1,20 @@
+{
+    "search": {
+        "_type": "client", 
+        "name": "test", 
+        "envs": {
+            "_type": "env", 
+            "example-foo": true
+        }
+    }, 
+    "output-fields": [
+        "name", 
+        {
+            "envs": [
+                "name", 
+                "client", 
+                "example-bar"
+            ]
+        }
+    ]
+}

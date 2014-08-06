@@ -1,0 +1,149 @@
+{
+    "$schema": "http://json-schema.org/schema#", 
+    "title": "search request", 
+    "description": "Schema describing search requests", 
+    "$ref": "#/definitions/searchRequest", 
+    "definitions": {
+        "searchRequest": {
+            "title": "complete search request", 
+            "type": "object", 
+            "properties": {
+                "search": {
+                    "title": "search filters", 
+                    "description": "Search filter - top filter need a _type", 
+                    "allOf": [
+                        {
+                            "$ref": "#definitions/searchFilter"
+                        }, 
+                        {
+                            "required": [
+                                "_type"
+                            ]
+                        }
+                    ]
+                }, 
+                "output-fields": {
+                    "title": "output fields for result", 
+                    "description": "attributes of objects to return (default: top object ids only)", 
+                    "$ref": "#/definitions/outputFields"
+                }
+            }, 
+            "required": [
+                "search"
+            ]
+        }, 
+        "searchFilter": {
+            "title": "search filter", 
+            "description": "Search filter - describing full filter on request", 
+            "type": "object", 
+            "properties": {
+                "_type": {
+                    "title": "search objects type", 
+                    "description": "filter by type of object", 
+                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet"
+                }, 
+                "_count": {
+                    "title": "Number of items in set", 
+                    "description": "Valid for sets, filter on number of existing items in set", 
+                    "type": "integer", 
+                    "minimum": 0
+                }
+            }, 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                    "title": "attributes", 
+                    "description": "named attributes, ref or set filters", 
+                    "$ref": "#/definitions/searchFilterProperty"
+                }
+            }
+        }, 
+        "searchFilterProperty": {
+            "title": "filter for a value", 
+            "anyOf": [
+                {
+                    "title": "simple attribute", 
+                    "description": "simple attribute (string, number, bool, ...)", 
+                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/simpleValue"
+                }, 
+                {
+                    "title": "any of multiple-value", 
+                    "description": "multiple-value - match if any of the values in the array matches", 
+                    "type": "object", 
+                    "properties": {
+                        "_any": {
+                            "type": "array", 
+                            "items": {
+                                "$ref": "#definitions/searchFilterProperty"
+                            }
+                        }
+                    }, 
+                    "required": [
+                        "_any"
+                    ], 
+                    "additionalProperties": false
+                }, 
+                {
+                    "title": "all of multiple-value", 
+                    "description": "multiple-value - match if all of the values in the array are present (for sets)", 
+                    "type": "object", 
+                    "properties": {
+                        "_all": {
+                            "type": "array", 
+                            "items": {
+                                "$ref": "#definitions/searchFilterProperty"
+                            }
+                        }
+                    }, 
+                    "required": [
+                        "_all"
+                    ], 
+                    "additionalProperties": false
+                }, 
+                {
+                    "title": "filter as attribute", 
+                    "description": "ref or sets gets a full filter to match on an object again.", 
+                    "$ref": "#definitions/searchFilter"
+                }
+            ]
+        }, 
+        "outputFields": {
+            "title": "output fields", 
+            "description": "list of fields that should be returned", 
+            "anyOf": [
+                {
+                    "title": "wildcard", 
+                    "description": "wildcard to return all fields (only direct items, not ref or items)", 
+                    "type": "string", 
+                    "enum": [
+                        "*"
+                    ]
+                }, 
+                {
+                    "type": "array", 
+                    "items": {
+                        "anyOf": [
+                            {
+                                "title": "fieldname", 
+                                "description": "fieldname to return", 
+                                "type": "string"
+                            }, 
+                            {
+                                "title": "ref", 
+                                "description": "ref/set to return, with list of output fields (wildcard allowed)", 
+                                "type": "object", 
+                                "additionalProperties": false, 
+                                "patternProperties": {
+                                    "^([a-z0-9]+(-[a-z0-9]+)*|[*])$": {
+                                        "$ref": "#/definitions/outputFields"
+                                    }
+                                }
+                            }
+                        ]
+                    }, 
+                    "uniqueItems": true
+                }
+            ]
+        }
+    }
+}

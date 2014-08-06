@@ -1,0 +1,29 @@
+{
+    "search": [
+        {
+            "_ref": "c0", 
+            "_type": "client", 
+            "name": "test"
+        }
+    ], 
+    "create": [
+        {
+            "_ref": "e0", 
+            "_type": "env", 
+            "name": "prod", 
+            "client": {
+                "$ref": "c0"
+            }
+        }, 
+        {
+            "_type": "domu", 
+            "name": "barbaz", 
+            "env": {
+                "$ref": "e0"
+            }, 
+            "parent": {
+                "$ref": "h0"
+            }
+        }
+    ]
+}

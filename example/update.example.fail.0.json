@@ -1,0 +1,29 @@
+{
+    "search": [
+        {
+            "_ref": "c0", 
+            "_type": "client", 
+            "name": "test", 
+            "envs": {
+                "_all": [
+                    {
+                        "_ref": "e0", 
+                        "name": "preprod"
+                    }, 
+                    {
+                        "_ref": "e1", 
+                        "name": "prod"
+                    }
+                ]
+            }
+        }, 
+        {
+            "_ref": "h0", 
+            "_type": "domu", 
+            "name": "foobar", 
+            "env": {
+                "$ref": "e0"
+            }
+        }
+    ]
+}

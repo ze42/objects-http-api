@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/schema#", 
+    "title": "misc types", 
+    "description": "just some misc types that might be used in other schemas", 
+    "definitions": {
+        "stringSet": {
+            "title": "set of strings", 
+            "description": "non-empty list of unique strings (non-empty set)", 
+            "type": "array", 
+            "items": {
+                "type": "string"
+            }, 
+            "minItems": 1, 
+            "uniqueItems": true
+        }, 
+        "stringOrSet": {
+            "title": "string or set of strings", 
+            "anyOf": [
+                {
+                    "type": "string"
+                }, 
+                {
+                    "$ref": "#definitions/stringSet"
+                }
+            ]
+        }, 
+        "simpleValue": {
+            "title": "simple value", 
+            "description": "any simple value we might accept. string, number, bool, ...", 
+            "anyOf": [
+                {
+                    "description": "simple string value", 
+                    "type": "string"
+                }, 
+                {
+                    "description": "simple int value", 
+                    "type": "integer"
+                }, 
+                {
+                    "description": "simple numeric value", 
+                    "type": "number"
+                }, 
+                {
+                    "description": "simple boolean value", 
+                    "type": "boolean"
+                }
+            ]
+        }
+    }
+}
