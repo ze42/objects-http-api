@@ -1,0 +1,112 @@
+$schema: http://json-schema.org/schema#
+$ref: '#definitions/objectTypes'
+definitions:
+  objectTypes:
+    title: Object Types (dict)
+    description: list and description of known object types
+    type: object
+    additionalProperties: false
+    patternProperties:
+      '^[a-z0-9]+(-[a-z0-9]+)*$':
+        $ref: '#definitions/objectType'
+  objectType:
+    type: object
+    title: Object Type
+    description: description of an object
+    additionalProperties: true
+    properties:
+      name:
+        type: string
+      aliases:
+        $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+      desc:
+        type: string
+      attributes:
+        $ref: '#definitions/objectAttributes'
+      key:
+        description: list of attributes that makes an item unique
+        $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+    required:
+      - name
+      - attributes
+      - key
+  objectAttributes:
+    type: object
+    title: Object attributes
+    description: description of an object attributes
+    additionalProperties: false
+    patternProperties:
+      '^[a-z0-9]+(-[a-z0-9]+)*$':
+         '$ref': '#definitions/objectAttribute'
+  objectAttribute:
+    title: ObjectAttribute
+    description: description of an object attribute
+    oneOf:
+      - $ref: '#definitions/objectAttributeSimple'
+      - $ref: '#definitions/objectAttributeSet'
+      - $ref: '#definitions/objectAttributeRef'
+  objectAttributeSimple:
+    type: object
+    title: simple attribute
+    description: simple attribute
+    properties:
+      type:
+        type: string
+        enum:
+          - string
+          - integer
+          - number
+          - boolean
+      desc:
+        type: string
+    additionalProperties: false
+    required:
+      - type
+  objectAttributeSet:
+    type: object
+    title: attribute set
+    description: reference to a set of other object
+    properties:
+      type:
+        type: string
+        enum:
+          - set
+      desc:
+        type: string
+      subtype:
+        description: set of elements of those subtypes
+        oneOf:
+          - type: string
+          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+    additionalProperties: false
+    required:
+      - type
+      - subtype
+  objectAttributeRef:
+    type: object
+    title: attribute reference (ext key)
+    description: reference to an other object
+    properties:
+      type:
+        type: string
+        enum:
+          - ref
+      subtype:
+        description: set of elements of those subtypes
+        oneOf:
+          - type: string
+          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+      desc:
+        type: string
+      on-ref-delete:
+        title: chain deletion
+        description: on ref delete, auto delete, or require a manual deletion
+        type: string
+        enum:
+          - auto-delete
+          - manual-delete
+    additionalProperties: false
+    required:
+      - type
+      - subtype
+      - on-ref-delete

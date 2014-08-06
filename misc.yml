@@ -1,0 +1,12 @@
+$schema: http://json-schema.org/schema#
+definitions:
+  stringSet:
+    type: array
+    items:
+      type: string
+    minItems: 1
+    uniqueItems: true
+  stringOrSet:
+    anyOf:
+      - type: string
+      - $ref: '#definitions/stringSet'

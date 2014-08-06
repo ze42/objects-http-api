@@ -1,0 +1,33 @@
+client:
+  name: client
+  aliases:
+    - Client
+    - customer
+    - org
+  desc: Clients/customer/organisations we work with
+  key:
+    - name
+  attributes:
+    name:
+      type: string
+    envs:
+      type: set
+      subtype: env
+env:
+  name: env
+  key:
+    - client
+    - name
+  attributes:
+    name:
+      type: string
+    client:
+      type: ref
+      subtype: client
+      on-ref-delete: manual-delete
+    example-foo:
+      type: boolean
+    example-bar:
+      type: number
+    example-baz:
+      type: integer

@@ -1,0 +1,86 @@
+$schema: http://json-schema.org/schema#
+$ref: '#/definitions/searchRequest'
+definitions:
+  searchRequest:
+    title: complete search request
+    type: object
+    properties:
+      search:
+        title: search filters
+        description: Search filter - top filter need a _type
+        type: array
+        items:
+          allOf:
+            - $ref: '#definitions/searchFilter'
+            - required:
+                - _type
+      output-fields:
+        title: output fields for result
+        description: attributes of objects to return
+        $ref: '#/definitions/outputFields'
+    required:
+      - search
+
+  searchFilter:
+    title: search filter
+    description: Search filter - describing full filter on request
+    type: object 
+    properties:
+      _type:
+        title: search objects type
+        description: type(s) of objects to return
+        $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet'
+      _count:
+        title: search objects type
+        description: type(s) of objects to return
+        type: integer
+        minimum: 0
+    additionalProperties: false
+    patternProperties:
+      '^[a-z0-9]+(-[a-z0-9]+)*$':
+         $ref: '#/definitions/searchFilterProperty'
+
+  searchFilterProperty:
+    title: filter for a value
+    anyOf:
+      - type: string
+        description: simple string value
+      - type: integer
+        description: simple int value
+      - type: number
+        description: simple numeric value
+      - type: boolean
+        description: simple boolean value
+      - type: object
+        additionalProperties: false
+        properties:
+          _any:
+            type: array
+            items:
+              $ref: '#definitions/searchFilterProperty'
+      - type: object
+        additionalProperties: false
+        properties:
+          _all:
+            type: array
+            items:
+              $ref: '#definitions/searchFilterProperty'
+      - $ref: '#definitions/searchFilter'
+
+  outputFields:
+    title: output fields
+    description: list of fields that should be returned
+    anyOf:
+      - type: string
+        enum:
+          - '*'
+      - type: array
+        items:
+          anyOf:
+            - type: string
+            - type: object
+              additionalProperties: false
+              patternProperties:
+                '^([a-z0-9]+(-[a-z0-9]+)*|[*])$':
+                  $ref: '#/definitions/outputFields'
+    uniqueItems: true

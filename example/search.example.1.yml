@@ -1,0 +1,11 @@
+search:
+  - _type: client
+    name: test
+    envs:
+      _count: 0
+output-fields:
+  - name
+  - envs:
+    - name
+    - client
+    - example-bar

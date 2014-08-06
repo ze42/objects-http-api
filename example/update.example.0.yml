@@ -1,0 +1,18 @@
+search:
+- _type: client
+  _ref: c0
+  count: 0
+  search:
+    name: test
+- _ref: env
+  search:
+    name: prod
+    client:
+      _ref: c0
+
+output-fields:
+  - name
+  - envs:
+    - name
+    - client
+    - example-bar
