@@ -1,8 +1,11 @@
 $schema: http://json-schema.org/schema#
+title: modification request
+description: any modification (create/update/delete) request
 $ref: '#/definitions/fullUpdateRequest'
 definitions:
   fullUpdateRequest:
-    title: some create/update/delete requests
+    title: full modification request
+    description: search (for ref), and create/update/delete requests
     type: object
     properties:
       search:
@@ -33,18 +36,24 @@ definitions:
     - required:
         - delete
   identifiedObjects:
+    title: list of identified objects
+    description: one or more identified object
     type: array
     items:
       $ref: '#/definitions/identifiedObject'
       additionalProperties: false
     minItems: 1
   identifiedObject:
+    title: an identified object
+    description: an object, identified by id or $ref.
     properties:
       id:
-        description: update an object by id
+        title: id of the object
+        description: modify an object by id
         type: string
       $ref:
-        description: update an object by searched reference
+        title: $ref of the object
+        description: object searched or created, marked with a _ref reference
         type: string
     oneOf:
       - required:
@@ -52,27 +61,37 @@ definitions:
       - required:
         - $ref
   searchRequest:
+    title: main search request
+    description: a search filter, with at least a defined type
     $ref: '#definitions/searchFilter'
     required:
       - _type
   searchFilter:
+    title: search filter
+    description: search for main, or ref/set...
     anyOf:
-      - $ref: '#/definitions/identifiedObject'
-      - type: object
+      - title: identified search
+        description: by id, or already found object
+        $ref: '#/definitions/identifiedObject'
+      - title: object match
+        description: search an object by attributes
+        type: object
         properties:
           _type:
             title: search objects type
-            description: type(s) of objects to return
+            description: type(s) of objects to search for
             $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet'
           _ref:
-            title: new reference for modifications
+            title: new reference
+            description: once found, can be used to identify object with $ref and the same value.
             type: string
         additionalProperties: false
         patternProperties:
           '^[a-z0-9]+(-[a-z0-9]+)*$':
              $ref: '#/definitions/searchFilterProperty'
   searchFilterProperty:
-    title: filter for a value
+    title: filter for an attribute
+    description: mostly the same as search filter, but with _ref available on objects
     anyOf:
       - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
       - type: object
@@ -99,29 +118,47 @@ definitions:
     additionalProperties: false
     properties:
       _type:
+        title: type of object to create
+        description: type of object to create is required
         type: string
       _ref:
+        title: new ref
+        description: ref for searched object to use in following modifications
         type: string
     required:
       - _type
     patternProperties:
       '^[a-z0-9]+(-[a-z0-9]+)*$':
         anyOf:
-          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
-          - $ref: '#/definitions/identifiedObject'
+          - title: simple attribute value
+            description: object is created with attribute at that simple value
+            $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
+          - title: ref
+            description: object is created with that ref
+            $ref: '#/definitions/identifiedObject'
             additionalProperties: false
-          - $ref: '#/definitions/identifiedObjects'
+          - title: set
+            description: object is created and associated with that set
+            $ref: '#/definitions/identifiedObjects'
   updateRequest:
+    title: update request
+    description: update an identifiable object with new attribute values
     type: object
     additionalProperties: false
     $ref: '#/definitions/identifiedObject'
     patternProperties:
       '^[a-z0-9]+(-[a-z0-9]+)*$':
         anyOf:
-          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
-          - $ref: '#/definitions/identifiedObject'
+          - title: simple attribute value
+            description: attribute is replaced by the new simple value
+            $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
+          - title: ref
+            description: a ref can be updated to a new identified object
+            $ref: '#/definitions/identifiedObject'
             additionalProperties: false
-          - type: object
+          - title: set
+            description: to modify a set, _add or _remove identified objects
+            type: object
             additionalProperties: false
             properties:
               _add:
@@ -134,6 +171,7 @@ definitions:
               - required:
                   - _remove
   deleteRequest:
-    description: delete by id, or searched references
+    title: delete request
+    description: each delete must be an identified object (id or ref)
     $ref: '#/definitions/identifiedObject'
     additionalProperties: false

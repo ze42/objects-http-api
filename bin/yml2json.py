@@ -7,10 +7,10 @@ import collections
 
 KEYS_NICE_ORDER = [
   '$schema',
-  '$ref',
-  'id',
   'title',
   'description',
+  '$ref',
+  'id',
   'definitions',
   'type',
 

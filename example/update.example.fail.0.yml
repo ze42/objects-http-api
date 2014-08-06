@@ -1,0 +1,15 @@
+search:
+- _type: client
+  _ref: c0
+  name: test
+  envs:
+    _all:
+      - name: preprod
+        _ref: e0
+      - name: prod
+        _ref: e1
+- _type: domu
+  _ref: h0
+  name: foobar
+  env:
+    $ref: e0

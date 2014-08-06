@@ -10,9 +10,9 @@ definitions:
       '^[a-z0-9]+(-[a-z0-9]+)*$':
         $ref: '#definitions/objectType'
   objectType:
-    type: object
     title: Object Type
     description: description of an object
+    type: object
     additionalProperties: true
     properties:
       name:
@@ -31,9 +31,9 @@ definitions:
       - attributes
       - key
   objectAttributes:
-    type: object
     title: Object attributes
     description: description of an object attributes
+    type: object
     additionalProperties: false
     patternProperties:
       '^[a-z0-9]+(-[a-z0-9]+)*$':
@@ -47,9 +47,9 @@ definitions:
       - $ref: '#definitions/objectAttributeRef'
       - $ref: '#definitions/objectAttributeRefAlias'
   objectAttributeSimple:
-    type: object
     title: simple attribute
     description: simple attribute
+    type: object
     properties:
       type:
         type: string
@@ -64,9 +64,9 @@ definitions:
     required:
       - type
   objectAttributeSet:
-    type: object
     title: attribute set
     description: reference to a set of other object
+    type: object
     properties:
       type:
         type: string
@@ -84,9 +84,9 @@ definitions:
       - type
       - subtype
   objectAttributeRefAlias:
-    type: object
     title: indirect references alias
     description: alias for indirect objects references/sets/...
+    type: object
     properties:
       type:
         type: string
@@ -104,9 +104,9 @@ definitions:
       - type
       - refpath
   objectAttributeRef:
-    type: object
     title: attribute reference (ext key)
     description: reference to an other object
+    type: object
     properties:
       type:
         type: string

@@ -1,0 +1,16 @@
+search:
+- _type: client
+  _ref: c0
+  name: test
+create:
+  - _type: env
+    _ref: e0
+    name: prod
+    client:
+      $ref: c0
+  - _type: domu
+    name: barbaz
+    parent:
+      $ref: h0
+    env:
+      $ref: e0
