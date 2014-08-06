@@ -8,6 +8,7 @@ import collections
 KEYS_NICE_ORDER = [
   '$schema',
   '$ref',
+  'id',
   'title',
   'description',
   'definitions',
@@ -37,20 +38,33 @@ KEYS_NICE_ORDER = [
   'minItems',
   'uniqueItems',
 
+  # Extended attributes
+  "_ref", 
+  "_type",
+  "_count",
+  "_add",
+  "_remove",
+
   # main attributes
   'name',
   'aliases',
   'desc',
   'key',
   'attributes',
+  'refpath',
 
   # Search properties
   "search", 
+  "create",
+  "update",
+  "delete",
   "output-fields",
 
   # Specific to our definitions
   'stringSet',
   'stringOrSet', 
+  'simpleValue',
+
   # Objects
   'objectTypes',
   'objectType',
@@ -59,11 +73,21 @@ KEYS_NICE_ORDER = [
   'objectAttributeSimple',
   'objectAttributeSet',
   'objectAttributeRef',
+  "objectAttributeRefAlias",
+
+  "identifiedObject",
+  "identifiedObjects",
+  "fullUpdateRequest",
+  "createRequest",
+  "updateRequest", 
+  "deleteRequest",
 
   "searchRequest", 
   "searchFilter", 
+  "searchFilterProperty",
   "outputFields", 
 
+  "minimum",
 
   # Only appears alone anyway
   "_all", 

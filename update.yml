@@ -1,1 +1,139 @@
-{}
+$schema: http://json-schema.org/schema#
+$ref: '#/definitions/fullUpdateRequest'
+definitions:
+  fullUpdateRequest:
+    title: some create/update/delete requests
+    type: object
+    properties:
+      search:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#definitions/searchRequest'
+      create:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#definitions/createRequest'
+      update:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#definitions/updateRequest'
+      delete:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#definitions/deleteRequest'
+    anyOf:
+    - required:
+        - update
+    - required:
+        - create
+    - required:
+        - delete
+  identifiedObjects:
+    type: array
+    items:
+      $ref: '#/definitions/identifiedObject'
+      additionalProperties: false
+    minItems: 1
+  identifiedObject:
+    properties:
+      id:
+        description: update an object by id
+        type: string
+      $ref:
+        description: update an object by searched reference
+        type: string
+    oneOf:
+      - required:
+        - id
+      - required:
+        - $ref
+  searchRequest:
+    $ref: '#definitions/searchFilter'
+    required:
+      - _type
+  searchFilter:
+    anyOf:
+      - $ref: '#/definitions/identifiedObject'
+      - type: object
+        properties:
+          _type:
+            title: search objects type
+            description: type(s) of objects to return
+            $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet'
+          _ref:
+            title: new reference for modifications
+            type: string
+        additionalProperties: false
+        patternProperties:
+          '^[a-z0-9]+(-[a-z0-9]+)*$':
+             $ref: '#/definitions/searchFilterProperty'
+  searchFilterProperty:
+    title: filter for a value
+    anyOf:
+      - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
+      - type: object
+        additionalProperties: false
+        properties:
+          _any:
+            type: array
+            items:
+              $ref: '#definitions/searchFilterProperty'
+        required:
+          - _any
+      - type: object
+        additionalProperties: false
+        properties:
+          _all:
+            type: array
+            items:
+              $ref: '#definitions/searchFilterProperty'
+        required:
+          - _all
+      - $ref: '#definitions/searchFilter'
+  createRequest:
+    type: object
+    additionalProperties: false
+    properties:
+      _type:
+        type: string
+      _ref:
+        type: string
+    required:
+      - _type
+    patternProperties:
+      '^[a-z0-9]+(-[a-z0-9]+)*$':
+        anyOf:
+          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
+          - $ref: '#/definitions/identifiedObject'
+            additionalProperties: false
+          - $ref: '#/definitions/identifiedObjects'
+  updateRequest:
+    type: object
+    additionalProperties: false
+    $ref: '#/definitions/identifiedObject'
+    patternProperties:
+      '^[a-z0-9]+(-[a-z0-9]+)*$':
+        anyOf:
+          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
+          - $ref: '#/definitions/identifiedObject'
+            additionalProperties: false
+          - type: object
+            additionalProperties: false
+            properties:
+              _add:
+                $ref: '#/definitions/identifiedObjects'
+              _remove:
+                $ref: '#/definitions/identifiedObjects'
+            anyOf:
+              - required:
+                  - _add
+              - required:
+                  - _remove
+  deleteRequest:
+    description: delete by id, or searched references
+    $ref: '#/definitions/identifiedObject'
+    additionalProperties: false

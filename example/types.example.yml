@@ -13,6 +13,11 @@ client:
     envs:
       type: set
       subtype: env
+    hosts:
+      type: refalias
+      refpath:
+        - envs
+        - hosts
 env:
   name: env
   key:
@@ -25,9 +30,41 @@ env:
       type: ref
       subtype: client
       on-ref-delete: manual-delete
+    hosts:
+      type: set
+      subtype:
+        - dom0
+        - domu
     example-foo:
       type: boolean
     example-bar:
       type: number
     example-baz:
       type: integer
+dom0:
+  name: dom0
+  key:
+    - name
+  attributes:
+    name:
+      type: string
+    env:
+      type: ref
+      subtype: env
+      on-ref-delete: manual-delete
+domu:
+  name: domu
+  key:
+    - name
+  attributes:
+    name:
+      type: string
+    env:
+      type: ref
+      subtype: env
+      on-ref-delete: manual-delete
+    client:
+      type: refalias
+      refpath:
+        - env
+        - client

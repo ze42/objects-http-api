@@ -45,6 +45,7 @@ definitions:
       - $ref: '#definitions/objectAttributeSimple'
       - $ref: '#definitions/objectAttributeSet'
       - $ref: '#definitions/objectAttributeRef'
+      - $ref: '#definitions/objectAttributeRefAlias'
   objectAttributeSimple:
     type: object
     title: simple attribute
@@ -82,6 +83,26 @@ definitions:
     required:
       - type
       - subtype
+  objectAttributeRefAlias:
+    type: object
+    title: indirect references alias
+    description: alias for indirect objects references/sets/...
+    properties:
+      type:
+        type: string
+        enum:
+          - refalias
+      refpath:
+        description: path to follow
+        allOf:
+          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+          - minItems: 2
+      desc:
+        type: string
+    additionalProperties: false
+    required:
+      - type
+      - refpath
   objectAttributeRef:
     type: object
     title: attribute reference (ext key)

@@ -10,3 +10,13 @@ definitions:
     anyOf:
       - type: string
       - $ref: '#definitions/stringSet'
+  simpleValue:
+    anyOf:
+      - type: string
+        description: simple string value
+      - type: integer
+        description: simple int value
+      - type: number
+        description: simple numeric value
+      - type: boolean
+        description: simple boolean value

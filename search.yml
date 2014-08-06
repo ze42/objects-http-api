@@ -41,14 +41,7 @@ definitions:
   searchFilterProperty:
     title: filter for a value
     anyOf:
-      - type: string
-        description: simple string value
-      - type: integer
-        description: simple int value
-      - type: number
-        description: simple numeric value
-      - type: boolean
-        description: simple boolean value
+      - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
       - type: object
         additionalProperties: false
         properties:
@@ -56,6 +49,8 @@ definitions:
             type: array
             items:
               $ref: '#definitions/searchFilterProperty'
+        required:
+          - _any
       - type: object
         additionalProperties: false
         properties:
@@ -63,6 +58,8 @@ definitions:
             type: array
             items:
               $ref: '#definitions/searchFilterProperty'
+        required:
+          - _all
       - $ref: '#definitions/searchFilter'
 
   outputFields:

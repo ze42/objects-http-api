@@ -1,18 +1,35 @@
 search:
 - _type: client
   _ref: c0
-  count: 0
-  search:
-    name: test
-- _ref: env
-  search:
-    name: prod
-    client:
-      _ref: c0
-
-output-fields:
-  - name
-  - envs:
-    - name
-    - client
-    - example-bar
+  name: test
+  envs:
+    _all:
+      - name: preprod
+        _ref: e0
+      - name: prod
+        _ref: e1
+- _type: domu
+  _ref: h0
+  name: foobar
+  env:
+    $ref: e0
+update:
+  - $ref: h0
+    env:
+      $ref: e1
+    roles:
+      _add:
+        - id: 8a3f944b-fa02-4093-961c-166450ef7dae
+      _remove:
+        - id: 5af692a5-2b5e-4f3c-b78c-6f5fc9d00106
+    enabled: false
+create:
+  - _type: domu
+    roles:
+      - id: 8a3f944b-fa02-4093-961c-166450ef7dae
+      - id: 5af692a5-2b5e-4f3c-b78c-6f5fc9d00106
+    name: barbaz
+    env:
+      $ref: e1
+delete:
+  - $ref: e0
