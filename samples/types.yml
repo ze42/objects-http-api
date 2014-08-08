@@ -1,0 +1,125 @@
+org:
+  name: organisation
+  aliases:
+    - org
+  key:
+    - name
+  attributes:
+    name:
+      type: string
+    friendlyname:
+      type: string
+    comment:
+      type: string
+    contracts:
+      type: set
+      subtype: contract
+    contacts:
+      type: set
+      subtype:
+        - team
+        - user
+team:
+  name: team
+  desc: a group of users
+  key:
+    - org
+    - name
+  attributes:
+    name:
+      desc: team name, uniq within the organisaton
+      type: string
+    friendlyname:
+      type: string
+    comment:
+      type: string
+    org:
+      type: ref
+      desc: do delete the team when you delete the organisation
+      subtype: org
+      on-ref-delete: auto-delete
+    users:
+      type: set
+      subtype: user
+    contracts:
+      desc: contracts for which it is marked as contact
+      type: set
+      subtype: contracts
+user:
+  name: user
+  key:
+    - org
+    - name
+  attributes:
+    name:
+      desc: user name, uniq within the organisaton
+      type: string
+    friendlyname:
+      desc: friendly or full name
+      type: string
+    comment:
+      type: string
+    org:
+      type: ref
+      desc: do delete the user when you delete the organisation
+      subtype: org
+      on-ref-delete: auto-delete
+    email:
+      type: string
+    teams:
+      type: set
+      subtype: team
+    contracts:
+      desc: contracts for which it is marked as contact
+      type: set
+      subtype: contracts
+contract:
+  name: contract
+  key:
+    - org
+    - name
+  attributes:
+    name:
+      desc: contract name, uniq within an organisation
+      type: string
+    friendlyname:
+      type: string
+    comment:
+      type: string
+    org:
+      type: ref
+      subtype: org
+      desc: refuse to delete an organisation that still has contracts
+      on-ref-delete: manual-delete
+    servers:
+      type: set
+      subtype: server
+    contacts:
+      type: set
+      desc: contacts for a server might be contacts outside of the organisation
+      subtype:
+        - team
+        - user
+server:
+  name: server
+  key: 
+    - name
+  attributes:
+    name:
+      desc: name must be uniq (not-organisation dependant)
+      type: string
+    friendlyname:
+      type: string
+    comment:
+      type: string
+    contract:
+      type: ref
+      subtype: contract
+      desc: refuse to delete a contract that still has servers
+      on-ref-delete: manual-delete
+    org:
+      desc: "contract's organisation"
+      type: refalias
+      refpath:
+        - contract
+        - org

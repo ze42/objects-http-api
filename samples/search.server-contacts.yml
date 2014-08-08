@@ -1,0 +1,27 @@
+search:
+  _type: server
+  name: babs
+desc: search server babs, and show contract contacts (user or team), and possibly users from team, with their org (as it might differ)
+output-fields:
+  - name
+  - friendlyname
+  - org:
+    - name
+    - friendlyname
+  - contract:
+    - name
+    - friendlyname
+    - contacts:
+      - name
+      - friendlyname
+      - org:
+        - name
+        - friendlyname
+      - email
+      - users:
+        - org:
+          - name
+          - friendlyname
+        - name
+        - friendlyname
+        - email

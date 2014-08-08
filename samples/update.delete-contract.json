@@ -1,0 +1,35 @@
+{
+    "search": [
+        {
+            "_ref": "contract", 
+            "_type": "contract", 
+            "name": "main", 
+            "org": {
+                "name": "foobar"
+            }, 
+            "servers": {
+                "_all": [
+                    {
+                        "_ref": "srv1", 
+                        "name": "srv12345"
+                    }, 
+                    {
+                        "_ref": "srv2", 
+                        "name": "srv12346"
+                    }
+                ]
+            }
+        }
+    ], 
+    "delete": [
+        {
+            "$ref": "srv1"
+        }, 
+        {
+            "$ref": "srv2"
+        }, 
+        {
+            "$ref": "contract"
+        }
+    ]
+}

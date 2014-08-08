@@ -4,7 +4,7 @@ basedir=/home/ze/work/is/schema
 yml2json="$basedir"/bin/yml2json.py
 validate="$basedir"/bin/validate.py
 
-schemabase='example/schema.json'
+schemabase='test/schema.json'
 
 die()
 {
@@ -15,7 +15,7 @@ die()
 cd "$basedir" || die "failed to cd basedir"
 
 # Update all json files - for inter-schema links
-"$yml2json" *.yml example/*.yml || die "Failed to update json files"
+"$yml2json" *.yml test/*.yml samples/*.yml || die "Failed to update json files"
 
 for schema in *.json ; do
   out=$("$validate" "$schemabase" "$schema" 2>&1) || {
@@ -25,9 +25,10 @@ for schema in *.json ; do
   echo "Schema ${schema%.json} ok"
 done
 
-for example in example/*.example.*json ; do
+for example in test/*.json samples/*.json ; do
   schema="${example#*/}"
   schema="${schema%%.*}"
+  [ "$schema" = "schema" ] && continue
   out=$( "$validate" "$schema".json "$example" 2>&1 ) ; ret=$?
   case "$example" in
 	*.fail*)

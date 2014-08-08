@@ -1,0 +1,14 @@
+{
+    "desc": "search organisations without any contracts", 
+    "search": {
+        "_type": "org", 
+        "contracts": {
+            "_count": 0
+        }
+    }, 
+    "output-fields": [
+        "name", 
+        "friendlyname", 
+        "comment"
+    ]
+}

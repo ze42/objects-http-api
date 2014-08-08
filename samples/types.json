@@ -1,0 +1,175 @@
+{
+    "contract": {
+        "name": "contract", 
+        "key": [
+            "org", 
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string", 
+                "desc": "contract name, uniq within an organisation"
+            }, 
+            "comment": {
+                "type": "string"
+            }, 
+            "contacts": {
+                "type": "set", 
+                "subtype": [
+                    "team", 
+                    "user"
+                ], 
+                "desc": "contacts for a server might be contacts outside of the organisation"
+            }, 
+            "friendlyname": {
+                "type": "string"
+            }, 
+            "org": {
+                "type": "ref", 
+                "subtype": "org", 
+                "on-ref-delete": "manual-delete", 
+                "desc": "refuse to delete an organisation that still has contracts"
+            }, 
+            "servers": {
+                "type": "set", 
+                "subtype": "server"
+            }
+        }
+    }, 
+    "org": {
+        "name": "organisation", 
+        "aliases": [
+            "org"
+        ], 
+        "key": [
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string"
+            }, 
+            "comment": {
+                "type": "string"
+            }, 
+            "contacts": {
+                "type": "set", 
+                "subtype": [
+                    "team", 
+                    "user"
+                ]
+            }, 
+            "contracts": {
+                "type": "set", 
+                "subtype": "contract"
+            }, 
+            "friendlyname": {
+                "type": "string"
+            }
+        }
+    }, 
+    "server": {
+        "name": "server", 
+        "key": [
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string", 
+                "desc": "name must be uniq (not-organisation dependant)"
+            }, 
+            "comment": {
+                "type": "string"
+            }, 
+            "contract": {
+                "type": "ref", 
+                "subtype": "contract", 
+                "on-ref-delete": "manual-delete", 
+                "desc": "refuse to delete a contract that still has servers"
+            }, 
+            "friendlyname": {
+                "type": "string"
+            }, 
+            "org": {
+                "type": "refalias", 
+                "desc": "contract's organisation", 
+                "refpath": [
+                    "contract", 
+                    "org"
+                ]
+            }
+        }
+    }, 
+    "team": {
+        "name": "team", 
+        "desc": "a group of users", 
+        "key": [
+            "org", 
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string", 
+                "desc": "team name, uniq within the organisaton"
+            }, 
+            "comment": {
+                "type": "string"
+            }, 
+            "contracts": {
+                "type": "set", 
+                "subtype": "contracts", 
+                "desc": "contracts for which it is marked as contact"
+            }, 
+            "friendlyname": {
+                "type": "string"
+            }, 
+            "org": {
+                "type": "ref", 
+                "subtype": "org", 
+                "on-ref-delete": "auto-delete", 
+                "desc": "do delete the team when you delete the organisation"
+            }, 
+            "users": {
+                "type": "set", 
+                "subtype": "user"
+            }
+        }
+    }, 
+    "user": {
+        "name": "user", 
+        "key": [
+            "org", 
+            "name"
+        ], 
+        "attributes": {
+            "name": {
+                "type": "string", 
+                "desc": "user name, uniq within the organisaton"
+            }, 
+            "comment": {
+                "type": "string"
+            }, 
+            "contracts": {
+                "type": "set", 
+                "subtype": "contracts", 
+                "desc": "contracts for which it is marked as contact"
+            }, 
+            "email": {
+                "type": "string"
+            }, 
+            "friendlyname": {
+                "type": "string", 
+                "desc": "friendly or full name"
+            }, 
+            "org": {
+                "type": "ref", 
+                "subtype": "org", 
+                "on-ref-delete": "auto-delete", 
+                "desc": "do delete the user when you delete the organisation"
+            }, 
+            "teams": {
+                "type": "set", 
+                "subtype": "team"
+            }
+        }
+    }
+}

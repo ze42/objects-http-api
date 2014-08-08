@@ -25,7 +25,7 @@ definitions:
         $ref: '#definitions/objectAttributes'
       key:
         description: list of attributes that makes an item unique
-        $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+        $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet'
     required:
       - name
       - attributes
@@ -76,9 +76,7 @@ definitions:
         type: string
       subtype:
         description: set of elements of those subtypes
-        oneOf:
-          - type: string
-          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+        $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet'
     additionalProperties: false
     required:
       - type
@@ -114,9 +112,7 @@ definitions:
           - ref
       subtype:
         description: set of elements of those subtypes
-        oneOf:
-          - type: string
-          - $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+        $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet'
       desc:
         type: string
       on-ref-delete:

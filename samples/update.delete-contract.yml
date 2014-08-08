@@ -1,0 +1,17 @@
+search:
+- _type: contract
+  _ref: contract
+  name: main
+  org:
+    name: foobar
+  servers:
+    _all:
+      - name: srv12345
+        _ref: srv1
+      - name: srv12346
+        _ref: srv2
+
+delete:
+  - $ref: srv1
+  - $ref: srv2
+  - $ref: contract

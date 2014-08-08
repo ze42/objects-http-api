@@ -1,0 +1,38 @@
+{
+    "search": [
+        {
+            "_ref": "contract", 
+            "_type": "contract", 
+            "name": "main", 
+            "org": {
+                "name": "foobar"
+            }
+        }
+    ], 
+    "create": [
+        {
+            "_type": "server", 
+            "name": "srv12345", 
+            "comment": "web server", 
+            "contract": {
+                "$ref": "contract"
+            }, 
+            "friendlyname": "web"
+        }, 
+        {
+            "_type": "server", 
+            "name": "srv12346", 
+            "comment": "mysql server", 
+            "contract": {
+                "$ref": "contract"
+            }, 
+            "friendlyname": "db"
+        }
+    ], 
+    "update": [
+        {
+            "$ref": "contract", 
+            "comment": "site developed by acme, 2 servers"
+        }
+    ]
+}

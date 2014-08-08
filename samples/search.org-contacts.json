@@ -1,0 +1,25 @@
+{
+    "desc": "search acme, show contacts (user or team), and possibly users from team", 
+    "search": {
+        "_type": "org", 
+        "name": "acme"
+    }, 
+    "output-fields": [
+        "name", 
+        "friendlyname", 
+        {
+            "contacts": [
+                "name", 
+                "friendlyname", 
+                "email", 
+                {
+                    "users": [
+                        "name", 
+                        "friendlyname", 
+                        "email"
+                    ]
+                }
+            ]
+        }
+    ]
+}
