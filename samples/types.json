@@ -27,7 +27,7 @@
             "org": {
                 "type": "ref", 
                 "subtype": "org", 
-                "on-ref-delete": "manual-delete", 
+                "on-ref-delete": "reject", 
                 "desc": "refuse to delete an organisation that still has contracts"
             }, 
             "servers": {
@@ -83,7 +83,7 @@
             "contract": {
                 "type": "ref", 
                 "subtype": "contract", 
-                "on-ref-delete": "manual-delete", 
+                "on-ref-delete": "reject", 
                 "desc": "refuse to delete a contract that still has servers"
             }, 
             "friendlyname": {
@@ -125,7 +125,7 @@
             "org": {
                 "type": "ref", 
                 "subtype": "org", 
-                "on-ref-delete": "auto-delete", 
+                "on-ref-delete": "cascade", 
                 "desc": "do delete the team when you delete the organisation"
             }, 
             "users": {
@@ -163,7 +163,7 @@
             "org": {
                 "type": "ref", 
                 "subtype": "org", 
-                "on-ref-delete": "auto-delete", 
+                "on-ref-delete": "cascade", 
                 "desc": "do delete the user when you delete the organisation"
             }, 
             "teams": {

@@ -37,7 +37,7 @@ team:
       type: ref
       desc: do delete the team when you delete the organisation
       subtype: org
-      on-ref-delete: auto-delete
+      on-ref-delete: cascade
     users:
       type: set
       subtype: user
@@ -63,7 +63,7 @@ user:
       type: ref
       desc: do delete the user when you delete the organisation
       subtype: org
-      on-ref-delete: auto-delete
+      on-ref-delete: cascade
     email:
       type: string
     teams:
@@ -90,7 +90,7 @@ contract:
       type: ref
       subtype: org
       desc: refuse to delete an organisation that still has contracts
-      on-ref-delete: manual-delete
+      on-ref-delete: reject
     servers:
       type: set
       subtype: server
@@ -116,7 +116,7 @@ server:
       type: ref
       subtype: contract
       desc: refuse to delete a contract that still has servers
-      on-ref-delete: manual-delete
+      on-ref-delete: reject
     org:
       desc: "contract's organisation"
       type: refalias

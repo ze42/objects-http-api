@@ -39,7 +39,8 @@
             "env": {
                 "type": "ref", 
                 "subtype": "env", 
-                "on-ref-delete": "manual-delete"
+                "on-ref-delete": "reject", 
+                "desc": "env can not be deleted while it has hosts"
             }
         }
     }, 
@@ -62,7 +63,8 @@
             "env": {
                 "type": "ref", 
                 "subtype": "env", 
-                "on-ref-delete": "manual-delete"
+                "on-ref-delete": "reject", 
+                "desc": "env can not be deleted while it has hosts"
             }
         }
     }, 
@@ -79,7 +81,8 @@
             "client": {
                 "type": "ref", 
                 "subtype": "client", 
-                "on-ref-delete": "manual-delete"
+                "on-ref-delete": "reject", 
+                "desc": "do not delete a client with existing env"
             }, 
             "example-bar": {
                 "type": "number"

@@ -136,11 +136,12 @@
                 }, 
                 "on-ref-delete": {
                     "title": "chain deletion", 
-                    "description": "on ref delete, auto delete, or require a manual deletion", 
+                    "description": "on ref delete, ignore (do nothing), cascade (cascade delete), or reject (prevent deletion)", 
                     "type": "string", 
                     "enum": [
-                        "auto-delete", 
-                        "manual-delete"
+                        "ignore", 
+                        "cascade", 
+                        "reject"
                     ]
                 }, 
                 "desc": {

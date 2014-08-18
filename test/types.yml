@@ -28,8 +28,9 @@ env:
       type: string
     client:
       type: ref
+      desc: do not delete a client with existing env
       subtype: client
-      on-ref-delete: manual-delete
+      on-ref-delete: reject
     hosts:
       type: set
       subtype:
@@ -50,8 +51,9 @@ dom0:
       type: string
     env:
       type: ref
+      desc: env can not be deleted while it has hosts
       subtype: env
-      on-ref-delete: manual-delete
+      on-ref-delete: reject
 domu:
   name: domu
   key:
@@ -62,7 +64,8 @@ domu:
     env:
       type: ref
       subtype: env
-      on-ref-delete: manual-delete
+      desc: env can not be deleted while it has hosts
+      on-ref-delete: reject
     client:
       type: refalias
       refpath:
