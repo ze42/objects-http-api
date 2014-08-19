@@ -1,0 +1,3 @@
+auth:
+  token: authenticationToken
+operation: core/update

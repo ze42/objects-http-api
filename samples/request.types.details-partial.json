@@ -1,0 +1,13 @@
+{
+    "auth": {
+        "token": "authenticationToken"
+    }, 
+    "data": {
+        "types": [
+            "client", 
+            "team", 
+            "user"
+        ]
+    }, 
+    "operation": "types/details"
+}

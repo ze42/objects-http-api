@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/schema#", 
     "title": "search request", 
     "description": "Schema describing search requests", 
-    "$ref": "#/definitions/searchRequest", 
+    "$ref": "#definitions/searchRequest", 
     "definitions": {
         "searchRequest": {
             "title": "complete search request", 
@@ -25,7 +25,7 @@
                 "output-fields": {
                     "title": "output fields for result", 
                     "description": "attributes of objects to return (default: top object ids only)", 
-                    "$ref": "#/definitions/outputFields"
+                    "$ref": "#definitions/outputFields"
                 }
             }, 
             "required": [
@@ -54,7 +54,7 @@
                 "^[a-z0-9]+(-[a-z0-9]+)*$": {
                     "title": "attributes", 
                     "description": "named attributes, ref or set filters", 
-                    "$ref": "#/definitions/searchFilterProperty"
+                    "$ref": "#definitions/searchFilterProperty"
                 }
             }
         }, 
@@ -135,7 +135,7 @@
                                 "additionalProperties": false, 
                                 "patternProperties": {
                                     "^([a-z0-9]+(-[a-z0-9]+)*|[*])$": {
-                                        "$ref": "#/definitions/outputFields"
+                                        "$ref": "#definitions/outputFields"
                                     }
                                 }
                             }

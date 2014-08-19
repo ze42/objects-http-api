@@ -1,0 +1,13 @@
+auth:
+  token: authenticationToken
+operation: core/search
+data:
+  search:
+    _type: org
+    contracts:
+      _count: 0
+  desc: search organisations without any contracts
+  output-fields:
+    - name
+    - friendlyname
+    - comment

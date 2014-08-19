@@ -1,0 +1,143 @@
+{
+    "$schema": "http://json-schema.org/schema#", 
+    "title": "request object", 
+    "description": "full request", 
+    "$ref": "#definitions/request", 
+    "definitions": {
+        "baseRequest": {
+            "type": "object", 
+            "properties": {
+                "auth": {
+                    "$ref": "#definitions/credentials"
+                }, 
+                "data": {
+                    "type": "object"
+                }, 
+                "operation": {
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "auth", 
+                "operation"
+            ], 
+            "additionalProperties": false
+        }, 
+        "credentials": {
+            "anyOf": [
+                {
+                    "type": "object", 
+                    "properties": {
+                        "token": {
+                            "type": "string"
+                        }
+                    }, 
+                    "required": [
+                        "token"
+                    ], 
+                    "additionalProperties": false
+                }, 
+                {
+                    "type": "object", 
+                    "properties": {
+                        "password": {
+                            "type": "string"
+                        }, 
+                        "user": {
+                            "type": "string"
+                        }
+                    }, 
+                    "required": [
+                        "user", 
+                        "password"
+                    ], 
+                    "additionalProperties": false
+                }
+            ]
+        }, 
+        "knownOperation": {
+            "type": "object", 
+            "anyOf": [
+                {
+                    "description": "list known data types", 
+                    "properties": {
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "types/list"
+                            ]
+                        }
+                    }
+                }, 
+                {
+                    "description": "details about data types", 
+                    "properties": {
+                        "data": {
+                            "type": "object", 
+                            "properties": {
+                                "types": {
+                                    "description": "list of types for which to return details", 
+                                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringSet"
+                                }
+                            }
+                        }, 
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "types/details"
+                            ]
+                        }
+                    }
+                }, 
+                {
+                    "description": "search request", 
+                    "properties": {
+                        "data": {
+                            "$ref": "file:///home/ze/work/is/schema/search.json"
+                        }, 
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "core/search"
+                            ]
+                        }
+                    }, 
+                    "required": [
+                        "operation", 
+                        "data"
+                    ]
+                }, 
+                {
+                    "description": "update request", 
+                    "properties": {
+                        "data": {
+                            "$ref": "file:///home/ze/work/is/schema/update.json"
+                        }, 
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "core/update"
+                            ]
+                        }
+                    }, 
+                    "required": [
+                        "operation", 
+                        "data"
+                    ]
+                }
+            ]
+        }, 
+        "request": {
+            "title": "API request", 
+            "type": "object", 
+            "allOf": [
+                {
+                    "$ref": "#definitions/baseRequest"
+                }, 
+                {
+                    "$ref": "#definitions/knownOperation"
+                }
+            ]
+        }
+    }
+}

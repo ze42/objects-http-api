@@ -1,0 +1,8 @@
+auth:
+  token: authenticationToken
+operation: types/details
+data:
+  types:
+    - client
+    - team
+    - user

@@ -1,0 +1,6 @@
+{
+    "auth": {
+        "token": "authenticationToken"
+    }, 
+    "operation": "types/list"
+}

@@ -1,0 +1,28 @@
+auth:
+  token: authenticationToken
+operation: core/update
+data:
+  search:
+  - _type: contract
+    _ref: contract
+    name: main
+    org:
+      name: foobar
+
+  update:
+    - $ref: contract
+      comment: site developed by acme, 2 servers
+
+  create:
+    - _type: server
+      name: srv12345
+      friendlyname: web
+      comment: web server
+      contract:
+        $ref: contract
+    - _type: server
+      name: srv12346
+      friendlyname: db
+      comment: mysql server
+      contract:
+        $ref: contract

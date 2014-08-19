@@ -1,7 +1,7 @@
 $schema: http://json-schema.org/schema#
 title: search request
 description: Schema describing search requests
-$ref: '#/definitions/searchRequest'
+$ref: '#definitions/searchRequest'
 definitions:
   searchRequest:
     title: complete search request
@@ -17,7 +17,7 @@ definitions:
       output-fields:
         title: output fields for result
         description: "attributes of objects to return (default: top object ids only)"
-        $ref: '#/definitions/outputFields'
+        $ref: '#definitions/outputFields'
     required:
       - search
 
@@ -40,7 +40,7 @@ definitions:
       '^[a-z0-9]+(-[a-z0-9]+)*$':
          title: attributes
          description: named attributes, ref or set filters
-         $ref: '#/definitions/searchFilterProperty'
+         $ref: '#definitions/searchFilterProperty'
 
   searchFilterProperty:
     title: filter for a value
@@ -95,5 +95,5 @@ definitions:
               additionalProperties: false
               patternProperties:
                 '^([a-z0-9]+(-[a-z0-9]+)*|[*])$':
-                  $ref: '#/definitions/outputFields'
+                  $ref: '#definitions/outputFields'
         uniqueItems: true

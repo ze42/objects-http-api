@@ -1,0 +1,86 @@
+$schema: http://json-schema.org/schema#
+title: request object
+description: full request
+$ref: '#definitions/request'
+definitions:
+  request:
+    title: API request
+    type: object
+    allOf:
+      - $ref: '#definitions/baseRequest'
+      - $ref: '#definitions/knownOperation'
+  baseRequest:
+    type: object
+    properties:
+      auth:
+        $ref: '#definitions/credentials'
+      operation:
+        type: string
+      data:
+        type: object
+    additionalProperties: false
+    required:
+      - auth
+      - operation
+  credentials:
+    anyOf:
+    - type: object
+      properties:
+        token:
+          type: string
+      additionalProperties: false
+      required:
+        - token
+    - type: object
+      properties:
+        user:
+          type: string
+        password:
+          type: string
+      additionalProperties: false
+      required:
+        - user
+        - password
+  knownOperation:
+    type: object
+    anyOf:
+      - description: list known data types
+        properties:
+          operation:
+            type: string
+            enum:
+              - 'types/list'
+      - description: details about data types
+        properties:
+          operation:
+            type: string
+            enum:
+              - 'types/details'
+          data:
+            type: object
+            properties:
+              types:
+                description: list of types for which to return details
+                $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+      - description: search request
+        properties:
+          operation:
+            type: string
+            enum:
+              - 'core/search'
+          data:
+            $ref: 'file:///home/ze/work/is/schema/search.json'
+        required:
+          - operation
+          - data
+      - description: update request
+        properties:
+          operation:
+            type: string
+            enum:
+              - 'core/update'
+          data:
+            $ref: 'file:///home/ze/work/is/schema/update.json'
+        required:
+          - operation
+          - data
