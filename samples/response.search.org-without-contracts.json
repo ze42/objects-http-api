@@ -1,0 +1,16 @@
+{
+    "operation": "core/search", 
+    "result": {
+        "objects": {
+            "01234567-89ab-cdef-0000-000000000001": {
+                "_type": "org", 
+                "name": "dummy", 
+                "comment": "Dummy orginanisation", 
+                "friendlyname": "Just testing stuffs", 
+                "uuid": "01234567-89ab-cdef-0000-000000000001"
+            }
+        }
+    }, 
+    "status": "ok", 
+    "uuid": "01234567-89ab-cdef-1000-000000000002"
+}

@@ -1,0 +1,78 @@
+{
+    "operation": "core/search", 
+    "result": {
+        "objects": {
+            "01234567-89ab-cdef-0000-000000000000": {
+                "_type": "org", 
+                "name": "acme", 
+                "contracts": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0003-000000000000", 
+                        "01234567-89ab-cdef-0003-000000000001"
+                    ]
+                }, 
+                "friendlyname": "A Compagnie that Makes Everything", 
+                "uuid": "01234567-89ab-cdef-0000-000000000000"
+            }
+        }, 
+        "related": {
+            "01234567-89ab-cdef-0003-000000000000": {
+                "_type": "contract", 
+                "name": "CT-000-00", 
+                "friendlyname": "Acme main hosting", 
+                "servers": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0004-000000000000", 
+                        "01234567-89ab-cdef-0004-000000000001", 
+                        "01234567-89ab-cdef-0004-000000000002"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0003-000000000000"
+            }, 
+            "01234567-89ab-cdef-0003-000000000001": {
+                "_type": "contract", 
+                "name": "CT-000-01", 
+                "friendlyname": "Acme staging", 
+                "servers": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0004-000000000003"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0003-000000000001"
+            }, 
+            "01234567-89ab-cdef-0004-000000000000": {
+                "_type": "server", 
+                "name": "srv000", 
+                "comment": "primary server", 
+                "friendlyname": "ACME web primary", 
+                "uuid": "01234567-89ab-cdef-0004-000000000000"
+            }, 
+            "01234567-89ab-cdef-0004-000000000001": {
+                "_type": "server", 
+                "name": "srv001", 
+                "comment": "web server", 
+                "friendlyname": "ACME web", 
+                "uuid": "01234567-89ab-cdef-0004-000000000001"
+            }, 
+            "01234567-89ab-cdef-0004-000000000002": {
+                "_type": "server", 
+                "name": "srv002", 
+                "comment": "db server", 
+                "friendlyname": "ACME db", 
+                "uuid": "01234567-89ab-cdef-0004-000000000002"
+            }, 
+            "01234567-89ab-cdef-0004-000000000003": {
+                "_type": "server", 
+                "name": "babs", 
+                "comment": "preprod", 
+                "friendlyname": "ACME preprod", 
+                "uuid": "01234567-89ab-cdef-0004-000000000003"
+            }
+        }
+    }, 
+    "status": "ok", 
+    "uuid": "01234567-89ab-cdef-1000-000000000001"
+}

@@ -1,0 +1,182 @@
+{
+    "$schema": "http://json-schema.org/schema#", 
+    "title": "response object", 
+    "description": "full response object", 
+    "$ref": "#definitions/response", 
+    "definitions": {
+        "baseResponse": {
+            "type": "object", 
+            "properties": {
+                "errors": {
+                    "type": "object", 
+                    "additionalProperties": false, 
+                    "patternProperties": {
+                        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                            "description": "key is known error message for automated handling", 
+                            "type": "object", 
+                            "properties": {
+                                "message": {
+                                    "description": "human readable error message", 
+                                    "type": "string"
+                                }, 
+                                "references": {
+                                    "description": "more references about the error", 
+                                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet"
+                                }
+                            }
+                        }
+                    }
+                }, 
+                "operation": {
+                    "description": "operation that was requested (if recognized)", 
+                    "type": "string"
+                }, 
+                "result": {
+                    "type": "object"
+                }, 
+                "status": {
+                    "description": "request status", 
+                    "type": "string", 
+                    "enum": [
+                        "ok", 
+                        "invalidRequest", 
+                        "error"
+                    ]
+                }, 
+                "uuid": {
+                    "description": "uuid of the request (for debug/trace)", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "uuid", 
+                "status"
+            ], 
+            "additionalProperties": false
+        }, 
+        "knownResponse": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "types/list"
+                            ]
+                        }, 
+                        "result": {
+                            "type": "object", 
+                            "properties": {
+                                "types": {
+                                    "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/stringSet"
+                                }
+                            }, 
+                            "required": [
+                                "types"
+                            ], 
+                            "additionalProperties": false
+                        }
+                    }
+                }, 
+                {
+                    "properties": {
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "types/details"
+                            ]
+                        }, 
+                        "result": {
+                            "$ref": "file:///home/ze/work/is/schema/types.json"
+                        }
+                    }
+                }, 
+                {
+                    "properties": {
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "core/search"
+                            ]
+                        }, 
+                        "result": {
+                            "$ref": "file:///home/ze/work/is/schema/results.json#definitions/searchResult"
+                        }
+                    }
+                }, 
+                {
+                    "properties": {
+                        "operation": {
+                            "type": "string", 
+                            "enum": [
+                                "core/update"
+                            ]
+                        }, 
+                        "result": {
+                            "$ref": "file:///home/ze/work/is/schema/results.json#definitions/updateResult"
+                        }
+                    }
+                }
+            ]
+        }, 
+        "okOrError": {
+            "type": "object", 
+            "anyOf": [
+                {
+                    "description": "everthing ok, need operation, and some result", 
+                    "required": [
+                        "operation", 
+                        "result"
+                    ], 
+                    "status": {
+                        "type": "string", 
+                        "enum": [
+                            "ok"
+                        ]
+                    }
+                }, 
+                {
+                    "description": "if we can't recognize the request, not much but errors", 
+                    "required": [
+                        "errors"
+                    ], 
+                    "status": {
+                        "description": "request status", 
+                        "type": "string", 
+                        "enum": [
+                            "invalidRequest"
+                        ]
+                    }
+                }, 
+                {
+                    "description": "on error, need error fields, and operation request", 
+                    "required": [
+                        "errors", 
+                        "operation"
+                    ], 
+                    "status": {
+                        "type": "string", 
+                        "enum": [
+                            "error"
+                        ]
+                    }
+                }
+            ]
+        }, 
+        "response": {
+            "title": "API respons", 
+            "type": "object", 
+            "allOf": [
+                {
+                    "$ref": "#definitions/baseResponse"
+                }, 
+                {
+                    "$ref": "#definitions/okOrError"
+                }, 
+                {
+                    "$ref": "#definitions/knownResponse"
+                }
+            ]
+        }
+    }
+}

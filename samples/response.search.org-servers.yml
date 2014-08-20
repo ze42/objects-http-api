@@ -1,0 +1,60 @@
+uuid: 01234567-89ab-cdef-1000-000000000001
+operation: core/search
+status: ok
+result:
+  objects:
+    01234567-89ab-cdef-0000-000000000000:
+      _type: org
+      uuid: 01234567-89ab-cdef-0000-000000000000
+      name: acme
+      friendlyname: A Compagnie that Makes Everything
+      contracts:
+        type: set
+        refs:
+          - 01234567-89ab-cdef-0003-000000000000
+          - 01234567-89ab-cdef-0003-000000000001
+  related:
+    01234567-89ab-cdef-0003-000000000000:
+      _type: contract
+      uuid: 01234567-89ab-cdef-0003-000000000000
+      name: CT-000-00
+      friendlyname: Acme main hosting
+      servers:
+        type: set
+        refs:
+          - 01234567-89ab-cdef-0004-000000000000
+          - 01234567-89ab-cdef-0004-000000000001
+          - 01234567-89ab-cdef-0004-000000000002
+    01234567-89ab-cdef-0003-000000000001:
+      _type: contract
+      uuid: 01234567-89ab-cdef-0003-000000000001
+      name: CT-000-01
+      friendlyname: Acme staging
+      servers:
+        type: set
+        refs:
+          - 01234567-89ab-cdef-0004-000000000003
+    01234567-89ab-cdef-0004-000000000000:
+      _type: server
+      uuid: 01234567-89ab-cdef-0004-000000000000
+      name: srv000
+      friendlyname: ACME web primary
+      comment: primary server
+    01234567-89ab-cdef-0004-000000000001:
+      _type: server
+      uuid: 01234567-89ab-cdef-0004-000000000001
+      name: srv001
+      friendlyname: ACME web
+      comment: web server
+    01234567-89ab-cdef-0004-000000000002:
+      _type: server
+      uuid: 01234567-89ab-cdef-0004-000000000002
+      name: srv002
+      friendlyname: ACME db
+      comment: db server
+    01234567-89ab-cdef-0004-000000000003:
+      _type: server
+      uuid: 01234567-89ab-cdef-0004-000000000003
+      name: babs
+      friendlyname: ACME preprod
+      comment: preprod

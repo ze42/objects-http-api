@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/schema#", 
+    "title": "results", 
+    "definitions": {
+        "object": {
+            "type": "object", 
+            "properties": {
+                "_type": {
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "type": "string"
+                }
+            }, 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                    "anyOf": [
+                        {
+                            "description": "attribute value", 
+                            "$ref": "file:///home/ze/work/is/schema/misc.json#definitions/simpleValue"
+                        }, 
+                        {
+                            "type": "object", 
+                            "properties": {
+                                "type": {
+                                    "description": "ref, set or alias", 
+                                    "type": "string", 
+                                    "enum": [
+                                        "ref", 
+                                        "set", 
+                                        "refalias"
+                                    ]
+                                }, 
+                                "refs": {
+                                    "description": "list of objects UUIDs", 
+                                    "type": "array", 
+                                    "items": {
+                                        "type": "string"
+                                    }, 
+                                    "uniqueItems": true
+                                }
+                            }, 
+                            "required": [
+                                "type", 
+                                "refs"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }, 
+        "objects": {
+            "type": "object", 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$": {
+                    "$ref": "#definitions/object"
+                }
+            }
+        }, 
+        "searchResult": {
+            "description": "result data for a search query", 
+            "type": "object", 
+            "properties": {
+                "objects": {
+                    "$ref": "#definitions/objects"
+                }, 
+                "related": {
+                    "$ref": "#definitions/objects"
+                }
+            }, 
+            "required": [
+                "objects"
+            ], 
+            "additionalProperties": false
+        }, 
+        "updateResult": {
+            "description": "result data for an update query", 
+            "type": "object"
+        }
+    }
+}

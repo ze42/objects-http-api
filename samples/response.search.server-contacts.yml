@@ -1,0 +1,90 @@
+uuid: 01234567-89ab-cdef-1000-000000000003
+operation: core/search
+status: ok
+result:
+  objects:
+    01234567-89ab-cdef-0004-000000000003:
+      _type: server
+      uuid: 01234567-89ab-cdef-0004-000000000003
+      name: babs
+      friendlyname: ACME preprod
+      contract:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0003-000000000001
+  related:
+    01234567-89ab-cdef-0000-000000000000:
+      _type: org
+      uuid: 01234567-89ab-cdef-0000-000000000000
+      name: acme
+      friendlyname: A Compagnie that Makes Everything
+    01234567-89ab-cdef-0000-000000000001:
+      _type: org
+      uuid: 01234567-89ab-cdef-0000-000000000001
+      name: dummy
+      friendlyname: Just testing stuffs
+    01234567-89ab-cdef-0003-000000000001:
+      _type: contract
+      uuid: 01234567-89ab-cdef-0003-000000000001
+      name: CT-000-01
+      friendlyname: Acme staging
+      contacts:
+        type: set
+        refs:
+          - 01234567-89ab-cdef-0001-000000000000
+          - 01234567-89ab-cdef-0002-000000000000
+          - 01234567-89ab-cdef-0002-000000000003
+    01234567-89ab-cdef-0001-000000000000:
+      _type: team
+      uuid: 01234567-89ab-cdef-0001-000000000000
+      name: tech
+      friendlyname: Tech Team
+      users:
+        type: set
+        refs:
+          - 01234567-89ab-cdef-0002-000000000001
+          - 01234567-89ab-cdef-0002-000000000002
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000000
+    01234567-89ab-cdef-0002-000000000000:
+      _type: user
+      uuid: 01234567-89ab-cdef-0002-000000000000
+      name: hamton
+      friendlyname: Hamton J. Pig
+      email: hampton.pig@acme.com
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000000
+    01234567-89ab-cdef-0002-000000000001:
+      _type: user
+      uuid: 01234567-89ab-cdef-0002-000000000001
+      name: coyote
+      friendlyname: Calamity Coyote
+      email: calamity.coyote@acme.com
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000000
+    01234567-89ab-cdef-0002-000000000002:
+      _type: user
+      uuid: 01234567-89ab-cdef-0002-000000000002
+      name: beeper
+      friendlyname: Little Beeper
+      email: little.beeper@acme.com
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000000
+    01234567-89ab-cdef-0002-000000000003:
+      _type: user
+      uuid: 01234567-89ab-cdef-0002-000000000002
+      name: doe
+      friendlyname: John Doe
+      email: john.doe@dummy.org
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000001

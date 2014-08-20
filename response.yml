@@ -1,0 +1,111 @@
+$schema: http://json-schema.org/schema#
+title: response object
+description: full response object
+$ref: '#definitions/response'
+definitions:
+  response:
+    title: API respons
+    type: object
+    allOf:
+      - $ref: '#definitions/baseResponse'
+      - $ref: '#definitions/okOrError'
+      - $ref: '#definitions/knownResponse'
+  baseResponse:
+    type: object
+    properties:
+      operation:
+        description: operation that was requested (if recognized)
+        type: string
+      uuid:
+        description: uuid of the request (for debug/trace)
+        type: string
+      status:
+        type: string
+        description: request status
+        enum:
+          - ok
+          - invalidRequest
+          - error
+      errors:
+        type: object
+        patternProperties:
+          '^[a-z0-9]+(-[a-z0-9]+)*$':
+            description: "key is known error message for automated handling"
+            type: object
+            properties:
+              references:
+                description: more references about the error
+                $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringOrSet'
+              message:
+                description: human readable error message
+                type: string
+        additionalProperties: false
+      result:
+        type: object
+    additionalProperties: false
+    required:
+      - uuid
+      - status
+  okOrError:
+    type: object
+    anyOf:
+      - description: everthing ok, need operation, and some result
+        status:
+          type: string
+          enum:
+            - ok
+        required:
+          - operation
+          - result
+      - description: if we can't recognize the request, not much but errors
+        status:
+          type: string
+          description: request status
+          enum:
+            - invalidRequest
+        required:
+          - errors
+      - description: on error, need error fields, and operation request
+        status:
+          type: string
+          enum:
+            - error
+        required:
+          - errors
+          - operation
+  knownResponse:
+    oneOf:
+      - properties:
+          operation:
+            type: string
+            enum:
+              - 'types/list'
+          result:
+            type: object
+            properties:
+              types:
+                $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/stringSet'
+            additionalProperties: false
+            required:
+              - types
+      - properties:
+          operation:
+            type: string
+            enum:
+              - 'types/details'
+          result:
+            $ref: 'file:///home/ze/work/is/schema/types.json'
+      - properties:
+          operation:
+            type: string
+            enum:
+              - 'core/search'
+          result:
+            $ref: 'file:///home/ze/work/is/schema/results.json#definitions/searchResult'
+      - properties:
+          operation:
+            type: string
+            enum:
+              - 'core/update'
+          result:
+            $ref: 'file:///home/ze/work/is/schema/results.json#definitions/updateResult'

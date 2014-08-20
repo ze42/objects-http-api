@@ -1,0 +1,54 @@
+$schema: http://json-schema.org/schema#
+title: results
+definitions:
+  searchResult:
+    type: object
+    description: result data for a search query
+    properties:
+      objects:
+        $ref: '#definitions/objects'
+      related:
+        $ref: '#definitions/objects'
+    additionalProperties: false
+    required:
+      - objects
+  updateResult:
+    type: object
+    description: result data for an update query
+  objects:
+    type: object
+    additionalProperties: false
+    patternProperties:
+      '^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$':
+         $ref: '#definitions/object'
+  object:
+    type: object
+    properties:
+      _type:
+        type: string
+      uuid:
+        type: string
+    additionalProperties: false
+    patternProperties:
+      '^[a-z0-9]+(-[a-z0-9]+)*$':
+        anyOf:
+          - description: attribute value
+            $ref: 'file:///home/ze/work/is/schema/misc.json#definitions/simpleValue'
+          - type: object
+            properties:
+              type:
+                description: ref, set or alias
+                type: string
+                enum:
+                  - ref
+                  - set
+                  - refalias
+              refs:
+                description: list of objects UUIDs
+                type: array
+                items:
+                  type: string
+                uniqueItems: true
+            required:
+              - type
+              - refs

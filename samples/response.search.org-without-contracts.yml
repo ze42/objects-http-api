@@ -1,0 +1,11 @@
+uuid: 01234567-89ab-cdef-1000-000000000002
+operation: core/search
+status: ok
+result:
+  objects:
+    01234567-89ab-cdef-0000-000000000001:
+      _type: org
+      uuid: 01234567-89ab-cdef-0000-000000000001
+      name: dummy
+      friendlyname: Just testing stuffs
+      comment: Dummy orginanisation

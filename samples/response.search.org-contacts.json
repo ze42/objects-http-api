@@ -1,0 +1,58 @@
+{
+    "operation": "core/search", 
+    "result": {
+        "objects": {
+            "01234567-89ab-cdef-0000-000000000000": {
+                "_type": "org", 
+                "name": "acme", 
+                "contacts": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0001-000000000000", 
+                        "01234567-89ab-cdef-0002-000000000000"
+                    ]
+                }, 
+                "friendlyname": "A Compagnie that Makes Everything", 
+                "uuid": "01234567-89ab-cdef-0000-000000000000"
+            }
+        }, 
+        "related": {
+            "01234567-89ab-cdef-0001-000000000000": {
+                "_type": "team", 
+                "name": "tech", 
+                "friendlyname": "Tech Team", 
+                "users": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0002-000000000001", 
+                        "01234567-89ab-cdef-0002-000000000002"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0001-000000000000"
+            }, 
+            "01234567-89ab-cdef-0002-000000000000": {
+                "_type": "user", 
+                "name": "hamton", 
+                "email": "hampton.pig@acme.com", 
+                "friendlyname": "Hamton J. Pig", 
+                "uuid": "01234567-89ab-cdef-0002-000000000000"
+            }, 
+            "01234567-89ab-cdef-0002-000000000001": {
+                "_type": "user", 
+                "name": "coyote", 
+                "email": "calamity.coyote@acme.com", 
+                "friendlyname": "Calamity Coyote", 
+                "uuid": "01234567-89ab-cdef-0002-000000000001"
+            }, 
+            "01234567-89ab-cdef-0002-000000000002": {
+                "_type": "user", 
+                "name": "beeper", 
+                "email": "little.beeper@acme.com", 
+                "friendlyname": "Little Beeper", 
+                "uuid": "01234567-89ab-cdef-0002-000000000002"
+            }
+        }
+    }, 
+    "status": "ok", 
+    "uuid": "01234567-89ab-cdef-1000-000000000000"
+}

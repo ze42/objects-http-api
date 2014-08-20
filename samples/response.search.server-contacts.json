@@ -1,0 +1,120 @@
+{
+    "operation": "core/search", 
+    "result": {
+        "objects": {
+            "01234567-89ab-cdef-0004-000000000003": {
+                "_type": "server", 
+                "name": "babs", 
+                "contract": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0003-000000000001"
+                    ]
+                }, 
+                "friendlyname": "ACME preprod", 
+                "uuid": "01234567-89ab-cdef-0004-000000000003"
+            }
+        }, 
+        "related": {
+            "01234567-89ab-cdef-0000-000000000000": {
+                "_type": "org", 
+                "name": "acme", 
+                "friendlyname": "A Compagnie that Makes Everything", 
+                "uuid": "01234567-89ab-cdef-0000-000000000000"
+            }, 
+            "01234567-89ab-cdef-0000-000000000001": {
+                "_type": "org", 
+                "name": "dummy", 
+                "friendlyname": "Just testing stuffs", 
+                "uuid": "01234567-89ab-cdef-0000-000000000001"
+            }, 
+            "01234567-89ab-cdef-0001-000000000000": {
+                "_type": "team", 
+                "name": "tech", 
+                "friendlyname": "Tech Team", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000000"
+                    ]
+                }, 
+                "users": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0002-000000000001", 
+                        "01234567-89ab-cdef-0002-000000000002"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0001-000000000000"
+            }, 
+            "01234567-89ab-cdef-0002-000000000000": {
+                "_type": "user", 
+                "name": "hamton", 
+                "email": "hampton.pig@acme.com", 
+                "friendlyname": "Hamton J. Pig", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000000"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0002-000000000000"
+            }, 
+            "01234567-89ab-cdef-0002-000000000001": {
+                "_type": "user", 
+                "name": "coyote", 
+                "email": "calamity.coyote@acme.com", 
+                "friendlyname": "Calamity Coyote", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000000"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0002-000000000001"
+            }, 
+            "01234567-89ab-cdef-0002-000000000002": {
+                "_type": "user", 
+                "name": "beeper", 
+                "email": "little.beeper@acme.com", 
+                "friendlyname": "Little Beeper", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000000"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0002-000000000002"
+            }, 
+            "01234567-89ab-cdef-0002-000000000003": {
+                "_type": "user", 
+                "name": "doe", 
+                "email": "john.doe@dummy.org", 
+                "friendlyname": "John Doe", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000001"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0002-000000000002"
+            }, 
+            "01234567-89ab-cdef-0003-000000000001": {
+                "_type": "contract", 
+                "name": "CT-000-01", 
+                "contacts": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0001-000000000000", 
+                        "01234567-89ab-cdef-0002-000000000000", 
+                        "01234567-89ab-cdef-0002-000000000003"
+                    ]
+                }, 
+                "friendlyname": "Acme staging", 
+                "uuid": "01234567-89ab-cdef-0003-000000000001"
+            }
+        }
+    }, 
+    "status": "ok", 
+    "uuid": "01234567-89ab-cdef-1000-000000000003"
+}
