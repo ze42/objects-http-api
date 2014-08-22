@@ -1,0 +1,70 @@
+{
+    "operation": "core/update", 
+    "result": {
+        "objects": {
+            "01234567-89ab-cdef-0003-000000000002": {
+                "_type": "contract", 
+                "name": "main", 
+                "_change": "created", 
+                "comment": "site developed by acme", 
+                "contacts": {
+                    "type": "set", 
+                    "refs": [
+                        "01234567-89ab-cdef-0001-000000000003", 
+                        "01234567-89ab-cdef-0001-000000000004"
+                    ]
+                }, 
+                "friendlyname": "main site for foobar", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000010"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0003-000000000002"
+            }
+        }, 
+        "refs": {
+            "devteam": [
+                "01234567-89ab-cdef-0001-000000000003"
+            ], 
+            "org": [
+                "01234567-89ab-cdef-0000-000000000010"
+            ], 
+            "techteam": [
+                "01234567-89ab-cdef-0001-000000000004"
+            ]
+        }, 
+        "related": {
+            "01234567-89ab-cdef-0000-000000000010": {
+                "_type": "org", 
+                "name": "foobar", 
+                "uuid": "01234567-89ab-cdef-0000-000000000010"
+            }, 
+            "01234567-89ab-cdef-0001-000000000003": {
+                "_type": "team", 
+                "name": "dev", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000000"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0001-000000000003"
+            }, 
+            "01234567-89ab-cdef-0001-000000000004": {
+                "_type": "team", 
+                "name": "tech", 
+                "org": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0000-000000000010"
+                    ]
+                }, 
+                "uuid": "01234567-89ab-cdef-0001-000000000004"
+            }
+        }
+    }, 
+    "status": "ok", 
+    "uuid": "01234567-89ab-cdef-1000-000000000004"
+}

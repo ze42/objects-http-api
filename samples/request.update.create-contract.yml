@@ -15,7 +15,6 @@ data:
     name: dev
     org:
       name: acme
-
   create:
     - _type: contract
       name: main

@@ -1,0 +1,49 @@
+{
+    "operation": "core/update", 
+    "result": {
+        "objects": {
+            "01234567-89ab-cdef-0003-000000000002": {
+                "_type": "contract", 
+                "name": "main", 
+                "_change": "updated", 
+                "comment": "site developed by acme, 2 servers", 
+                "uuid": "01234567-89ab-cdef-0003-000000000002"
+            }, 
+            "01234567-89ab-cdef-0004-000000000100": {
+                "_type": "server", 
+                "name": "srv12345", 
+                "_change": "created", 
+                "comment": "web server", 
+                "contract": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0003-000000000002"
+                    ]
+                }, 
+                "friendlyname": "web", 
+                "uuid": "01234567-89ab-cdef-0004-000000000100"
+            }, 
+            "01234567-89ab-cdef-0004-000000000101": {
+                "_type": "server", 
+                "name": "srv12346", 
+                "_change": "created", 
+                "comment": "mysql server", 
+                "contract": {
+                    "type": "ref", 
+                    "refs": [
+                        "01234567-89ab-cdef-0003-000000000002"
+                    ]
+                }, 
+                "friendlyname": "db", 
+                "uuid": "01234567-89ab-cdef-0004-000000000101"
+            }
+        }, 
+        "refs": {
+            "contract": [
+                "01234567-89ab-cdef-0003-000000000002"
+            ]
+        }
+    }, 
+    "status": "ok", 
+    "uuid": "01234567-89ab-cdef-1000-000000000006"
+}

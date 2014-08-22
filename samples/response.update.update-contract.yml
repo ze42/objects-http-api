@@ -1,0 +1,36 @@
+uuid: 01234567-89ab-cdef-1000-000000000006
+operation: core/update
+status: ok
+result:
+  refs:
+    contract:
+      - 01234567-89ab-cdef-0003-000000000002
+  objects:
+    01234567-89ab-cdef-0003-000000000002:
+      uuid: 01234567-89ab-cdef-0003-000000000002
+      _type: contract
+      _change: updated
+      name: main
+      comment: site developed by acme, 2 servers
+    01234567-89ab-cdef-0004-000000000100:
+      _type: server
+      _change: created
+      uuid: 01234567-89ab-cdef-0004-000000000100
+      name: srv12345
+      friendlyname: web
+      comment: web server
+      contract:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0003-000000000002
+    01234567-89ab-cdef-0004-000000000101:
+      _type: server
+      _change: created
+      uuid: 01234567-89ab-cdef-0004-000000000101
+      name: srv12346
+      friendlyname: db
+      comment: mysql server
+      contract:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0003-000000000002

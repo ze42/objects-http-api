@@ -8,11 +8,9 @@ data:
     name: main
     org:
       name: foobar
-
   update:
     - $ref: contract
       comment: site developed by acme, 2 servers
-
   create:
     - _type: server
       name: srv12345

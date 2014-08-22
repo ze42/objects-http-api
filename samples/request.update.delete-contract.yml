@@ -14,7 +14,6 @@ data:
           _ref: srv1
         - name: srv12346
           _ref: srv2
-
   delete:
     - $ref: srv1
     - $ref: srv2

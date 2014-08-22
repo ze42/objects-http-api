@@ -1,0 +1,49 @@
+uuid: 01234567-89ab-cdef-1000-000000000004
+operation: core/update
+status: ok
+result:
+  refs:
+    org:
+      - 01234567-89ab-cdef-0000-000000000010
+    devteam:
+      - 01234567-89ab-cdef-0001-000000000003
+    techteam:
+      - 01234567-89ab-cdef-0001-000000000004
+  objects:
+    01234567-89ab-cdef-0003-000000000002:
+      _type: contract
+      _change: created
+      uuid: 01234567-89ab-cdef-0003-000000000002
+      name: main
+      friendlyname: main site for foobar
+      comment: site developed by acme
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000010
+      contacts:
+        type: set
+        refs:
+          - 01234567-89ab-cdef-0001-000000000003
+          - 01234567-89ab-cdef-0001-000000000004
+  related:
+    01234567-89ab-cdef-0000-000000000010:
+      _type: org
+      uuid: 01234567-89ab-cdef-0000-000000000010
+      name: foobar
+    01234567-89ab-cdef-0001-000000000003:
+      _type: team
+      uuid: 01234567-89ab-cdef-0001-000000000003
+      name: dev
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000000
+    01234567-89ab-cdef-0001-000000000004:
+      _type: team
+      uuid: 01234567-89ab-cdef-0001-000000000004
+      name: tech
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000010

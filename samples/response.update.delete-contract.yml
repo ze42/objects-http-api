@@ -1,0 +1,36 @@
+uuid: 01234567-89ab-cdef-1000-000000000005
+operation: core/update
+status: ok
+result:
+  refs:
+    contract:
+      - 01234567-89ab-cdef-0003-000000000002
+    srv1:
+      - 01234567-89ab-cdef-0004-000000000100
+    srv2:
+      - 01234567-89ab-cdef-0004-000000000101
+  objects:
+    01234567-89ab-cdef-0003-000000000002:
+      _type: contract
+      _change: deleted
+      uuid: 01234567-89ab-cdef-0003-000000000002
+      name: main
+      org:
+        type: ref
+        refs:
+          - 01234567-89ab-cdef-0000-000000000010
+    01234567-89ab-cdef-0004-000000000100:
+      _type: server
+      _change: deleted
+      uuid: 01234567-89ab-cdef-0004-000000000100
+      name: srv12345
+    01234567-89ab-cdef-0004-000000000101:
+      _type: server
+      _change: deleted
+      uuid: 01234567-89ab-cdef-0004-000000000101
+      name: srv12346
+  related:
+    01234567-89ab-cdef-0000-000000000010:
+      _type: org
+      uuid: 01234567-89ab-cdef-0000-000000000010
+      name: foobar

@@ -8,10 +8,22 @@
                 "_type": {
                     "type": "string"
                 }, 
+                "_change": {
+                    "type": "string", 
+                    "enum": [
+                        "created", 
+                        "deleted", 
+                        "updated"
+                    ]
+                }, 
                 "uuid": {
                     "type": "string"
                 }
             }, 
+            "required": [
+                "_type", 
+                "uuid"
+            ], 
             "additionalProperties": false, 
             "patternProperties": {
                 "^[a-z0-9]+(-[a-z0-9]+)*$": {
@@ -55,7 +67,34 @@
             "additionalProperties": false, 
             "patternProperties": {
                 "^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$": {
-                    "$ref": "#definitions/object"
+                    "allOf": [
+                        {
+                            "$ref": "#definitions/object"
+                        }, 
+                        {
+                            "not": {
+                                "type": "object", 
+                                "required": [
+                                    "_change"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        }, 
+        "references": {
+            "description": "list of found references from update request", 
+            "type": "object", 
+            "additionalProperties": false, 
+            "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                    "description": "refname -> UUIDs", 
+                    "type": "array", 
+                    "items": {
+                        "type": "string"
+                    }, 
+                    "uniqueItems": true
                 }
             }
         }, 
@@ -77,7 +116,39 @@
         }, 
         "updateResult": {
             "description": "result data for an update query", 
-            "type": "object"
+            "type": "object", 
+            "properties": {
+                "objects": {
+                    "description": "List of changed objects, with _change attributte\n\ncreated\n    Newly created object. All known attributes and links are present\ndeleted\n    Will mostly have only key identification values\nupdated\n    Will have key identification, and updated values\n", 
+                    "additionalProperties": false, 
+                    "patternProperties": {
+                        "^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$": {
+                            "allOf": [
+                                {
+                                    "$ref": "#definitions/object"
+                                }, 
+                                {
+                                    "type": "object", 
+                                    "required": [
+                                        "_change"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }, 
+                "refs": {
+                    "description": "references found from search request part", 
+                    "$ref": "#definitions/references"
+                }, 
+                "related": {
+                    "description": "some objects might be placed here for referece, optional", 
+                    "$ref": "#definitions/objects"
+                }
+            }, 
+            "required": [
+                "objects"
+            ]
         }
     }
 }
